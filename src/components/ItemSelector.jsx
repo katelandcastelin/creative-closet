@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import SelectedItemList from './SelectedItemList';
 
 const ItemIcon = styled.div`
   height: 65px;
@@ -11,24 +12,31 @@ const ItemIcon = styled.div`
   align-items: center;
   margin: 10px;
   cursor: pointer;
+  transition: transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
-const items = [
-  'hair',
-  'dress',
-  'top',
-  'bottom',
-  'jacket',
-];
-
-export default function ItemSelector() {
+export default function ItemSelector({ onSelectItemType }) {
   return (
     <div>
-      {items.map((item, index) => (
-        <ItemIcon key={index}>
-          {item}
-        </ItemIcon>
-      ))}
+      <ItemIcon>
+        Hair
+      </ItemIcon>
+      <ItemIcon  onClick={() => onSelectItemType('dresses')}>
+        Dress
+      </ItemIcon>
+      <ItemIcon onClick={() => onSelectItemType('tops')}>
+        Top
+      </ItemIcon>
+      <ItemIcon>
+        Bottom
+      </ItemIcon>
+      <ItemIcon>
+        Jacket
+      </ItemIcon>
     </div>
   )
 }

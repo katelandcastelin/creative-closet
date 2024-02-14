@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ItemChild from './ItemChild';
+import {tops} from '../../backend/tops';
+import {dresses} from '../../backend/dresses';
 
 const ListContainer = styled.div`
   height: 99vh;
@@ -20,58 +22,32 @@ const ItemBlock = styled.div`
   cursor: pointer;
 `;
 
-const hair = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
+export default function SelectedItemList({ selectedType }) {
 
-const dresses = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
+  let items;
+  switch (selectedType) {
+    case 'hair':
+      items = hair;
+      break;
+    case 'tops':
+      items = tops;
+      break;
+    case 'dresses':
+      items = dresses;
+      break;
+    default:
+      items = [];
+  }
 
-const top = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
-
-export default function SelectedItemList() {
   return (
     <>
-      <ItemChild />
       <ListContainer>
-        {dresses.map((dress, index) => (
-          <ItemBlock key={index}>
-            {dress}
-          </ItemBlock>
-        ))}
+        {console.log(items)}
+        {items.length > 0 ? (
+          items.map((item, index) => <div key={index}>{item}</div>)
+        ) : (
+          <div>No items to display</div>
+        )}
       </ListContainer>
     </>
   )
