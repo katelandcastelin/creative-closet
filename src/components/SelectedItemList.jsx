@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ItemChild from './ItemChild';
 import {tops} from '../../backend/tops';
@@ -23,6 +23,22 @@ const ItemBlock = styled.div`
 `;
 
 export default function SelectedItemList({ selectedType }) {
+  const [scrollPositions, setScrollPositions] = useState({});
+  const listContainerRef = useRef(null);
+
+  const handleScroll = () => {
+    setScrollPositions({
+      ...scrollPositions,
+      [selectedType]: listContainerRef.current?.scrollTop,
+    });
+  };
+
+  useEffect(() => {
+    const savedScrollPosition = scrollPositions[selectedType] || 0;
+    if (listContainerRef.current) {
+      listContainerRef.current.scrollTop = savedScrollPosition;
+    }
+  }, [selectedType, scrollPositions]);
 
   let items;
   switch (selectedType) {
@@ -41,13 +57,12 @@ export default function SelectedItemList({ selectedType }) {
 
   return (
     <>
-      <ListContainer>
-        {console.log(items)}
-        {items.length > 0 ? (
-          items.map((item, index) => <div key={index}>{item}</div>)
-        ) : (
-          <div>No items to display</div>
-        )}
+      <ListContainer  ref={listContainerRef} onScroll={handleScroll}>
+        {items.map((item, index) => (
+          <ItemBlock key={index}>
+            {item}
+          </ItemBlock>
+        ))}
       </ListContainer>
     </>
   )
