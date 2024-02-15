@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import ItemChild from './ItemChild';
 import {tops} from '../../backend/tops';
 import {dresses} from '../../backend/dresses';
+import {bottoms} from '../../backend/bottoms';
 
 const ListContainer = styled.div`
   height: 99vh;
@@ -20,9 +20,14 @@ const ItemBlock = styled.div`
   height: 180px;
   border-bottom: 1px solid #555;
   cursor: pointer;
+  object-fit: contain;
+
+  img {
+    height: 480px;
+  }
 `;
 
-export default function SelectedItemList({ selectedType }) {
+export default function SelectedItemList({ selectedType, onSelectItemImage }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
 
@@ -42,25 +47,29 @@ export default function SelectedItemList({ selectedType }) {
 
   let items;
   switch (selectedType) {
-    case 'hair':
-      items = hair;
-      break;
     case 'tops':
       items = tops;
       break;
     case 'dresses':
       items = dresses;
       break;
+    case 'bottoms':
+      items = bottoms;
+      break;
+
     default:
       items = [];
-  }
+  };
 
   return (
     <>
-      <ListContainer  ref={listContainerRef} onScroll={handleScroll}>
+      <ListContainer ref={listContainerRef} onScroll={handleScroll}>
         {items.map((item, index) => (
           <ItemBlock key={index}>
-            {item}
+            <img
+              src={item.img} 
+              onClick={() => onSelectItemImage(item.img)}
+            />
           </ItemBlock>
         ))}
       </ListContainer>

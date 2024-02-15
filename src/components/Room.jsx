@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Figure from './Figure';
-import Button from './UI/Button';
 
 const RoomContainer = styled.div`
   height: 99vh;
@@ -10,14 +9,14 @@ const RoomContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: aliceblue;
 `;
 
-export default function Room() {
+export default function Room({ selectedItemImage }) {
+
   return (
     <RoomContainer>
-      <Figure />
-      {/* <Button>Save avatar</Button>
-      <Button>Save outfit</Button> */}
+      <Figure image={selectedItemImage} />
     </RoomContainer>
   )
 }

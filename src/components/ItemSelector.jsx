@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import SelectedItemList from './SelectedItemList';
 
 const ItemIcon = styled.div`
   height: 65px;
@@ -31,7 +30,7 @@ export default function ItemSelector({ onSelectItemType }) {
       <ItemIcon onClick={() => onSelectItemType('tops')}>
         Top
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelectItemType('bottoms')}>
         Bottom
       </ItemIcon>
       <ItemIcon>

@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import DefaultFigure from '../assets/figure/figure.png';
-import Top1 from '../assets/tops/1.png';
 
 const FigureBlock = styled.div`
-  background-color: aliceblue;
   display: contents;
 
   img {
@@ -13,10 +11,23 @@ const FigureBlock = styled.div`
   }
 `;
 
-export default function Figure() {
+const FigureImage = styled.img`
+  height: 99vh;
+  position: absolute;
+`;
+
+const ItemImage = styled.img`
+  height: auto;
+  position: absolute;
+`;
+
+export default function Figure({ image }) {
+
   return (
     <FigureBlock>
-      <img src={DefaultFigure} />
+      {/* <img src={image || DefaultFigure} /> */}
+      <FigureImage src={DefaultFigure} alt="Default figure" />
+      {image && <ItemImage src={image} alt="Selected item" />}
     </FigureBlock>
   )
 }
