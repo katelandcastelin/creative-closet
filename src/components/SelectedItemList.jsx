@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import ItemChild from './ItemChild';
+import {tops} from '../../backend/tops';
+import {dresses} from '../../backend/dresses';
+import {bottoms} from '../../backend/bottoms';
 
 const ListContainer = styled.div`
   height: 99vh;
@@ -18,58 +20,56 @@ const ItemBlock = styled.div`
   height: 180px;
   border-bottom: 1px solid #555;
   cursor: pointer;
+  object-fit: contain;
+
+  img {
+    height: 480px;
+  }
 `;
 
-const hair = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
+export default function SelectedItemList({ selectedType, onSelectItemImage }) {
+  const [scrollPositions, setScrollPositions] = useState({});
+  const listContainerRef = useRef(null);
 
-const dresses = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
+  const handleScroll = () => {
+    setScrollPositions({
+      ...scrollPositions,
+      [selectedType]: listContainerRef.current?.scrollTop,
+    });
+  };
 
-const top = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-];
+  useEffect(() => {
+    const savedScrollPosition = scrollPositions[selectedType] || 0;
+    if (listContainerRef.current) {
+      listContainerRef.current.scrollTop = savedScrollPosition;
+    }
+  }, [selectedType, scrollPositions]);
 
-export default function SelectedItemList() {
+  let items;
+  switch (selectedType) {
+    case 'tops':
+      items = tops;
+      break;
+    case 'dresses':
+      items = dresses;
+      break;
+    case 'bottoms':
+      items = bottoms;
+      break;
+
+    default:
+      items = [];
+  };
+
   return (
     <>
-      <ItemChild />
-      <ListContainer>
-        {dresses.map((dress, index) => (
+      <ListContainer ref={listContainerRef} onScroll={handleScroll}>
+        {items.map((item, index) => (
           <ItemBlock key={index}>
-            {dress}
+            <img
+              src={item.img} 
+              onClick={() => onSelectItemImage(item.img)}
+            />
           </ItemBlock>
         ))}
       </ListContainer>

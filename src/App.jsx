@@ -14,12 +14,15 @@ const SelectorContainer = styled.div`
 `;
 
 function App() {
+  const [selectedType, setSelectedType] = useState();
+  const [selectedItemImage, setSelectedItemImage] = useState();
+
   return (
     <AppContainer>
-      <Room />
+      <Room selectedItemImage={selectedItemImage} />
       <SelectorContainer>
-        <ItemSelector />
-        <SelectedItemList />
+        <ItemSelector onSelectItemType={setSelectedType} />
+        <SelectedItemList selectedType={selectedType} onSelectItemImage={setSelectedItemImage} />
       </SelectorContainer>
     </AppContainer>
   )

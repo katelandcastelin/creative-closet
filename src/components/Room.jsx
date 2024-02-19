@@ -9,12 +9,14 @@ const RoomContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: aliceblue;
 `;
 
-export default function Room() {
+export default function Room({ selectedItemImage }) {
+
   return (
     <RoomContainer>
-      <Figure />
+      <Figure image={selectedItemImage} />
     </RoomContainer>
   )
 }

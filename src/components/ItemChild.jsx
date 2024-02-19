@@ -29,11 +29,9 @@ const subItems = [
 export default function ItemChild() {
   return (
     <Container>
-      {subItems.map((item, index) => (
-        <SubItem key={index}>
-          {item}
-        </SubItem>
-      ))}
+      <SubItem>
+        {/* items in the item selected */}
+      </SubItem>
     </Container>
   )
 }
