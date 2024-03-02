@@ -15,14 +15,36 @@ const SelectorContainer = styled.div`
 
 function App() {
   const [selectedType, setSelectedType] = useState();
-  const [selectedItemImage, setSelectedItemImage] = useState();
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const handleSelectItemImage = (itemType, image) => {
+    if (itemType === 'dresses') {
+      setSelectedItems({ dress: image });
+    } else {
+      const newItems = { ...selectedItems };
+      if (newItems.dress) {
+        delete newItems.dress;
+      }
+      setSelectedItems({
+        ...newItems,
+        [itemType]: image,
+      });
+    }
+  };
 
   return (
     <AppContainer>
-      <Room selectedItemImage={selectedItemImage} />
+      <Room
+        selectedItems={selectedItems}
+      />
       <SelectorContainer>
-        <ItemSelector onSelectItemType={setSelectedType} />
-        <SelectedItemList selectedType={selectedType} onSelectItemImage={setSelectedItemImage} />
+        <ItemSelector
+          onSelectItemType={setSelectedType} 
+        />
+        <SelectedItemList
+          selectedType={selectedType}
+          onSelectItemImage={(image) => handleSelectItemImage(selectedType, image)}
+        />
       </SelectorContainer>
     </AppContainer>
   )

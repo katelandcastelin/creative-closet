@@ -24,7 +24,7 @@ export default function ItemSelector({ onSelectItemType }) {
       <ItemIcon>
         Hair
       </ItemIcon>
-      <ItemIcon  onClick={() => onSelectItemType('dresses')}>
+      <ItemIcon onClick={() => onSelectItemType('dresses')}>
         Dress
       </ItemIcon>
       <ItemIcon onClick={() => onSelectItemType('tops')}>
