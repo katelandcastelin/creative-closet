@@ -18,18 +18,21 @@ function App() {
   const [selectedItems, setSelectedItems] = useState({});
 
   const handleSelectItemImage = (itemType, image) => {
-    if (itemType === 'dresses') {
-      setSelectedItems({ dress: image });
-    } else {
-      const newItems = { ...selectedItems };
-      if (newItems.dress) {
-        delete newItems.dress;
+    setSelectedItems(prevItems => {
+      if (prevItems[itemType] === image) {
+        const updatedItems = { ...prevItems };
+        delete updatedItems[itemType];
+        return updatedItems;
+      } else {
+        if (itemType === 'dresses') {
+          return { dresses: image };
+        } else if ((itemType === 'tops' || itemType === 'bottoms') && prevItems.dresses) {
+          return { [itemType]: image };
+        } else {
+          return { ...prevItems, [itemType]: image };
+        }
       }
-      setSelectedItems({
-        ...newItems,
-        [itemType]: image,
-      });
-    }
+    });
   };
 
   return (
