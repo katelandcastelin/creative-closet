@@ -11,23 +11,14 @@ const FigureBlock = styled.div`
   }
 `;
 
-const FigureImage = styled.img`
-  height: 99vh;
-  position: absolute;
-`;
-
-const ItemImage = styled.img`
-  height: auto;
-  position: absolute;
-`;
-
-export default function Figure({ image }) {
+export default function Figure({ items }) {
 
   return (
     <FigureBlock>
-      {/* <img src={image || DefaultFigure} /> */}
-      <FigureImage src={DefaultFigure} alt="Default figure" />
-      {image && <ItemImage src={image} alt="Selected item" />}
+      <img src={DefaultFigure} alt='Default figure' />
+      {Object.values(items).map((item, index) => (
+        <img key={index} src={item} alt='Selected item' />
+      ))}
     </FigureBlock>
   )
 }
