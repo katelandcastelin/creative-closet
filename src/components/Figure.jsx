@@ -15,10 +15,12 @@ export default function Figure({ items }) {
 
   return (
     <FigureBlock>
-      <img src={DefaultFigure} alt='Default figure' />
-      {Object.values(items).map((item, index) => (
-        <img key={index} src={item} alt='Selected item' />
-      ))}
+      <img src={DefaultFigure} alt="Default figure" />
+      {Object.entries(items).map(([category, subItems]) =>
+        Object.values(subItems).map((imgSrc, index) => (
+          <img key={`${category}-${index}`} src={imgSrc} alt={`${category} item`} />
+        ))
+      )}
     </FigureBlock>
   )
 }
