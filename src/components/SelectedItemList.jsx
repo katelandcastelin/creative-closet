@@ -100,11 +100,8 @@ export default function SelectedItemList({ selectedType, onSelectItemImage }) {
       <SubItemSelector selectedType={selectedType} onSelectSubType={setSelectedSubType} />
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
         {items.map((item, index) => (
-          <ItemBlock key={index}>
-            <img
-              src={item.img} 
-              onClick={() => onSelectItemImage(item.img)}
-            />
+          <ItemBlock key={index} onClick={() => onSelectItemImage(selectedSubType || 'default', item.full)}>
+            <img src={item.icon} />
           </ItemBlock>
         ))}
       </ListContainer>

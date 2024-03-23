@@ -1,7 +1,9 @@
-import Dress1 from '../src/assets/dresses/1.png';
+import Dress1Full from '../src/assets/dresses/full/1.png';
+import Dress1Icon from '../src/assets/dresses/icon/1.png';
 
 export const dresses = [
   {
-    img: Dress1,
+    full: Dress1Full,
+    icon: Dress1Icon,
   },
 ];

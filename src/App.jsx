@@ -17,19 +17,23 @@ function App() {
   const [selectedType, setSelectedType] = useState();
   const [selectedItems, setSelectedItems] = useState({});
 
-  const handleSelectItemImage = (itemType, image) => {
+  const handleSelectItemImage = (itemType, subType, image) => {
     setSelectedItems(prevItems => {
-      if (prevItems[itemType] === image) {
-        const updatedItems = { ...prevItems };
-        delete updatedItems[itemType];
-        return updatedItems;
+      const currentTypeItems = prevItems[itemType] || {};
+      if (currentTypeItems[subType] === image) {
+        const updatedSubItems = { ...currentTypeItems };
+        delete updatedSubItems[subType];
+        return { ...prevItems, [itemType]: updatedSubItems };
       } else {
+        const updatedSubItems = { ...currentTypeItems, [subType]: image };
         if (itemType === 'dresses') {
-          return { dresses: image };
+          return { dresses: { default: image } };
         } else if ((itemType === 'tops' || itemType === 'bottoms') && prevItems.dresses) {
-          return { [itemType]: image };
+          const updatedItems = { ...prevItems };
+          delete updatedItems.dresses;
+          return { ...updatedItems, [itemType]: { default: image } };
         } else {
-          return { ...prevItems, [itemType]: image };
+          return { ...prevItems, [itemType]: updatedSubItems };
         }
       }
     });
@@ -46,7 +50,7 @@ function App() {
         />
         <SelectedItemList
           selectedType={selectedType}
-          onSelectItemImage={(image) => handleSelectItemImage(selectedType, image)}
+          onSelectItemImage={(subType, image) => handleSelectItemImage(selectedType, subType, image)}
         />
       </SelectorContainer>
     </AppContainer>
