@@ -11,16 +11,10 @@ const FigureBlock = styled.div`
   }
 `;
 
-export default function Figure({ items }) {
-
+export default function Figure() {
   return (
     <FigureBlock>
       <img src={DefaultFigure} alt="Default figure" />
-      {Object.entries(items).map(([category, subItems]) =>
-        Object.values(subItems).map((imgSrc, index) => (
-          <img key={`${category}-${index}`} src={imgSrc} alt={`${category} item`} />
-        ))
-      )}
     </FigureBlock>
   )
 }

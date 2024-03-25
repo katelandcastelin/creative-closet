@@ -43,10 +43,9 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItemImage }) {
+export default function SelectedItemList({ selectedType }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
-  const [selectedSubType, setSelectedSubType] = useState('');
 
   const handleScroll = () => {
     setScrollPositions({
@@ -62,48 +61,13 @@ export default function SelectedItemList({ selectedType, onSelectItemImage }) {
     }
   }, [selectedType, scrollPositions]);
 
-  let items;
-  switch (selectedType) {
-    case 'tops':
-      items = tops;
-      break;
-    case 'dresses':
-      items = dresses;
-      break;
-    case 'bottoms':
-      items = bottoms;
-      break;
-    case 'shoes':
-      items = selectedSubType === 'socks' ? socks : shoes;
-      break;
-    case 'accessories':
-      switch (selectedSubType) {
-        case 'hats':
-          items = hats;
-          break;
-        case 'earrings':
-          items = earrings;
-          break;
-        case 'necklaces':
-          items = necklaces;
-          break;
-        default:
-          items = hats;
-      }
-      break;
-    default:
-      items = [];
-  };
-
   return (
     <>
-      <SubItemSelector selectedType={selectedType} onSelectSubType={setSelectedSubType} />
+      <SubItemSelector />
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
-        {items.map((item, index) => (
-          <ItemBlock key={index} onClick={() => onSelectItemImage(selectedSubType || 'default', item.full)}>
-            <img src={item.icon} />
-          </ItemBlock>
-        ))}
+        <ItemBlock>
+          <img />
+        </ItemBlock>
       </ListContainer>
     </>
   )
