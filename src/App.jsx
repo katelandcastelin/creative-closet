@@ -20,12 +20,14 @@ function App() {
   const handleSelectItemImage = (itemType, subType, image) => {
     setSelectedItems(prevItems => {
       const currentTypeItems = prevItems[itemType] || {};
-      
-      // Toggle off logic for the same item being clicked again
-      if (currentTypeItems[subType] === image) {
+
+      // The issue seems to be in identifying the toggle-off condition correctly.
+      // Adjust the condition to explicitly check if the sub-item is already selected.
+      if (currentTypeItems[subType] && currentTypeItems[subType] === image) {
         const updatedSubItems = { ...currentTypeItems };
         delete updatedSubItems[subType];
 
+        // If no sub-items remain in the category, remove the category altogether.
         if (Object.keys(updatedSubItems).length === 0) {
           const { [itemType]: _, ...restItems } = prevItems;
           return restItems;
@@ -33,30 +35,51 @@ function App() {
 
         return { ...prevItems, [itemType]: updatedSubItems };
       } else {
-        // New selection logic to clear previous selections properly
-        // Clear selections from other types if needed according to the game's logic
-        // For simplification, let's assume we reset other types, but you can adjust the logic to keep some types if needed
-        const newSelection = {
-          ...prevItems,
-          [itemType]: { ...currentTypeItems, [subType]: image },
-        };
+        // Selecting an item: Add or update the item in its category.
+        const updatedSubItems = { ...currentTypeItems, [subType]: image };
 
-        // Example logic for clearing other selections, this might need adjustment based on game rules
-        // If selecting a dress, clear tops and bottoms (and any other conflicting types)
+        // Handle special cases for dresses affecting tops and bottoms.
         if (itemType === 'dresses') {
-          delete newSelection.tops;
-          delete newSelection.bottoms;
-          // Add more deletions as per game logic
+          const { tops: _, bottoms: __, ...rest } = prevItems;
+          return { ...rest, [itemType]: { default: image } };
+        } else {
+          // Handle selecting tops/bottoms when a dress is selected.
+          if ((itemType === 'tops' || itemType === 'bottoms') && prevItems.dresses) {
+            const { dresses: _, ...rest } = prevItems;
+            return { ...rest, [itemType]: updatedSubItems };
+          } else {
+            // Regular item selection.
+            return { ...prevItems, [itemType]: updatedSubItems };
+          }
         }
-        // If selecting tops or bottoms, clear dresses
-        if (itemType === 'tops' || itemType === 'bottoms') {
-          delete newSelection.dresses;
-        }
-        // Similar logic can be added for accessories to ensure everything can toggle on and off correctly
-
-        return newSelection;
       }
     });
+  };
+
+  const handleSelectSubItemImage = (subType, image) => {
+    // Check if the item is currently selected and should be toggled off
+    const currentlySelected = selectedItems[selectedType]?.[subType] === image;
+  
+    if (currentlySelected) {
+      // Deselect the item
+      setSelectedItems(prevItems => {
+        const updatedCategoryItems = { ...prevItems[selectedType] };
+        delete updatedCategoryItems[subType]; // Remove the sub-item
+  
+        // Check if there are no more sub-items selected in this category
+        if (Object.keys(updatedCategoryItems).length === 0) {
+          // If empty, remove the entire category
+          const { [selectedType]: _, ...restItems } = prevItems;
+          return restItems;
+        }
+  
+        // Otherwise, just update the category with the remaining selected sub-items
+        return { ...prevItems, [selectedType]: updatedCategoryItems };
+      });
+    } else {
+      // If not currently selected, proceed to select the item as normal
+      handleSelectItemImage(selectedType, subType, image);
+    }
   };
 
   return (
@@ -70,7 +93,7 @@ function App() {
         />
         <SelectedItemList
           selectedType={selectedType}
-          onSelectItemImage={(subType, image) => handleSelectItemImage(selectedType, subType, image)}
+          onSelectItemImage={(subType, image) => handleSelectSubItemImage(subType, image)}
         />
       </SelectorContainer>
     </AppContainer>
