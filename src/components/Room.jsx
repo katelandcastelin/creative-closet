@@ -12,13 +12,11 @@ const RoomContainer = styled.div`
   background-color: aliceblue;
 `;
 
-export default function Room({ selectedItems }) {
+export default function Room({ selectedItem }) {
 
   return (
     <RoomContainer>
-      <Figure
-        items={selectedItems}
-      />
+      <Figure selectedItem={selectedItem} />
     </RoomContainer>
   )
 }

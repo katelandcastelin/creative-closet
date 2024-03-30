@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import styled from 'styled-components';
 import Room from './components/Room';
@@ -14,44 +14,23 @@ const SelectorContainer = styled.div`
 `;
 
 function App() {
-  const [selectedType, setSelectedType] = useState();
-  const [selectedItems, setSelectedItems] = useState({});
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const handleSelectItemImage = (itemType, subType, image) => {
-    setSelectedItems(prevItems => {
-      const currentTypeItems = prevItems[itemType] || {};
-      if (currentTypeItems[subType] === image) {
-        const updatedSubItems = { ...currentTypeItems };
-        delete updatedSubItems[subType];
-        return { ...prevItems, [itemType]: updatedSubItems };
-      } else {
-        const updatedSubItems = { ...currentTypeItems, [subType]: image };
-        if (itemType === 'dresses') {
-          return { dresses: { default: image } };
-        } else if ((itemType === 'tops' || itemType === 'bottoms') && prevItems.dresses) {
-          const updatedItems = { ...prevItems };
-          delete updatedItems.dresses;
-          return { ...updatedItems, [itemType]: { default: image } };
-        } else {
-          return { ...prevItems, [itemType]: updatedSubItems };
-        }
-      }
-    });
+  const handleSelectType = (type) => {
+    setSelectedType(type);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
   };
 
   return (
     <AppContainer>
-      <Room
-        selectedItems={selectedItems}
-      />
+      <Room selectedItem={selectedItem} />
       <SelectorContainer>
-        <ItemSelector
-          onSelectItemType={setSelectedType} 
-        />
-        <SelectedItemList
-          selectedType={selectedType}
-          onSelectItemImage={(subType, image) => handleSelectItemImage(selectedType, subType, image)}
-        />
+        <ItemSelector onSelect={handleSelectType} />
+        <SelectedItemList selectedType={selectedType} onSelectItem={handleSelectItem} />
       </SelectorContainer>
     </AppContainer>
   )

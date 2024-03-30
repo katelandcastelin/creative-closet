@@ -22,21 +22,12 @@ const SubItemIcon = styled.div`
   border: 1px solid #ddd;
 `;
 
-  const subCategories = {
-    shoes: ['shoes', 'socks'],
-    accessories: ['hats', 'earrings', 'necklaces'],
-  };
-
-export default function SubItemSelector({ selectedType, onSelectSubType }) {
-  const categoriesToShow = subCategories[selectedType] || [];
+export default function SubItemSelector() {
 
   return (
     <SubIconContainer>
-      {categoriesToShow.map((subType) => (
-        <SubItemIcon key={subType} onClick={() => onSelectSubType(subType)}>
-          {subType}
-        </SubItemIcon>
-      ))}
+      <SubItemIcon>
+      </SubItemIcon>
     </SubIconContainer>
   );
 }

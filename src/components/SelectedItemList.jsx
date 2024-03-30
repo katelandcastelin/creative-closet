@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SubItemSelector from './SubItemSelector';
-import {tops} from '../../backend/tops';
-import {dresses} from '../../backend/dresses';
-import {bottoms} from '../../backend/bottoms';
-import {shoes} from '../../backend/shoes';
-import {socks} from '../../backend/socks';
-import {hats} from '../../backend/hats';
-import {earrings} from '../../backend/earrings';
-import {necklaces} from '../../backend/necklaces';
+import { items } from '../../backend/items';
 
 const ListContainer = styled.div`
   height: 97vh;
@@ -43,10 +36,10 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItemImage }) {
+export default function SelectedItemList({ selectedType, onSelectItem }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
-  const [selectedSubType, setSelectedSubType] = useState('');
+  const displayItems = items[selectedType] || [];
 
   const handleScroll = () => {
     setScrollPositions({
@@ -62,48 +55,17 @@ export default function SelectedItemList({ selectedType, onSelectItemImage }) {
     }
   }, [selectedType, scrollPositions]);
 
-  let items;
-  switch (selectedType) {
-    case 'tops':
-      items = tops;
-      break;
-    case 'dresses':
-      items = dresses;
-      break;
-    case 'bottoms':
-      items = bottoms;
-      break;
-    case 'shoes':
-      items = selectedSubType === 'socks' ? socks : shoes;
-      break;
-    case 'accessories':
-      switch (selectedSubType) {
-        case 'hats':
-          items = hats;
-          break;
-        case 'earrings':
-          items = earrings;
-          break;
-        case 'necklaces':
-          items = necklaces;
-          break;
-        default:
-          items = hats;
-      }
-      break;
-    default:
-      items = [];
-  };
-
   return (
     <>
-      <SubItemSelector selectedType={selectedType} onSelectSubType={setSelectedSubType} />
+      <SubItemSelector />
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
-        {items.map((item, index) => (
-          <ItemBlock key={index} onClick={() => onSelectItemImage(selectedSubType || 'default', item.full)}>
-            <img src={item.icon} />
-          </ItemBlock>
-        ))}
+        {
+          displayItems.map((item, index) => (
+            <ItemBlock key={index} onClick={() => onSelectItem(item)}>
+              <img src={item.icon} alt={selectedType} />
+            </ItemBlock>
+          ))
+        }
       </ListContainer>
     </>
   )
