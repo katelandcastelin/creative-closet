@@ -34,28 +34,28 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function ItemSelector() {
+export default function ItemSelector({ onSelect }) {
   return (
     <SelectorContainer>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Hair')}>
         Hair
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Dresses')}>
         Dress
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Tops')}>
         Top
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Bottoms')}>
         Bottom
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Jackets')}>
         Jacket
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Shoes')}>
         Shoes
       </ItemIcon>
-      <ItemIcon>
+      <ItemIcon onClick={() => onSelect('Accessories')}>
         Accessories
       </ItemIcon>
     </SelectorContainer>

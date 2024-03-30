@@ -11,10 +11,11 @@ const FigureBlock = styled.div`
   }
 `;
 
-export default function Figure() {
+export default function Figure({ selectedItem }) {
   return (
     <FigureBlock>
       <img src={DefaultFigure} alt="Default figure" />
+      {selectedItem && <img src={selectedItem.full} alt='Selected item' />}
     </FigureBlock>
   )
 }

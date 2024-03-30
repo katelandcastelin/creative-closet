@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import styled from 'styled-components';
 import Room from './components/Room';
@@ -14,12 +14,23 @@ const SelectorContainer = styled.div`
 `;
 
 function App() {
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleSelectType = (type) => {
+    setSelectedType(type);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+  };
+
   return (
     <AppContainer>
-      <Room />
+      <Room selectedItem={selectedItem} />
       <SelectorContainer>
-        <ItemSelector />
-        <SelectedItemList />
+        <ItemSelector onSelect={handleSelectType} />
+        <SelectedItemList selectedType={selectedType} onSelectItem={handleSelectItem} />
       </SelectorContainer>
     </AppContainer>
   )
