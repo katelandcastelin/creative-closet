@@ -7,6 +7,7 @@ const SelectorContainer = styled.div`
   align-items: center;
   padding: 20px;
   border-radius: 10px;
+  z-index: 2;
 `;
 
 const ItemIcon = styled.div`
@@ -52,7 +53,7 @@ export default function ItemSelector({ onSelect }) {
       <ItemIcon onClick={() => onSelect('Jackets')}>
         Jacket
       </ItemIcon>
-      <ItemIcon onClick={() => onSelect('Shoes')}>
+      <ItemIcon onClick={() => onSelect('Feet')}>
         Shoes
       </ItemIcon>
       <ItemIcon onClick={() => onSelect('Accessories')}>

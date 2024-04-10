@@ -36,7 +36,7 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItem }) {
+export default function SubSelectedItemList({ selectedType, onSelectItem }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];
@@ -59,7 +59,6 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
 
   return (
     <>
-    {!isArray && selectedType in items && <SubItemSelector items={items[selectedType]} />}
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
         {isArray
           ? displayItems.map((item, index) => (
