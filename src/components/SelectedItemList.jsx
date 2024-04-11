@@ -40,6 +40,12 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];
+  const [selectedSubItem, setSelectedSubItem] = useState(null);
+
+  const onSelectSubItem = (item) => {
+    console.log(item);
+    setSelectedSubItem(item);
+  };
 
   const handleScroll = () => {
     setScrollPositions({
@@ -59,7 +65,7 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
 
   return (
     <>
-    {!isArray && selectedType in items && <SubItemSelector items={items[selectedType]} />}
+    {!isArray && selectedType in items && <SubItemSelector items={items[selectedType]} onSelectSubItem={onSelectSubItem} />}
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
         {isArray
           ? displayItems.map((item, index) => (

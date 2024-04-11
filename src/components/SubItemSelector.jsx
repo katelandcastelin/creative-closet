@@ -23,15 +23,14 @@ const SubItemIcon = styled.div`
   border: 1px solid #ddd;
 `;
 
-export default function SubItemSelector({ items }) {
+export default function SubItemSelector({ items, onSelectSubItem }) {
   return (
     <SubIconContainer>
       {Object.entries(items).map(([category, subItems]) => (
         <div key={category}>
           {subItems.map((item, index) => (
-            <SubItemIcon key={index}>
+            <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
               {category}
-              <SubSelectedItemList />
             </SubItemIcon>
           ))}
         </div>
