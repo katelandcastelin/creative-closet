@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import SubSelectedItemList from './SubSelectedItemList';
 
 const SubIconContainer = styled.div`
   display: flex;
@@ -22,12 +23,18 @@ const SubItemIcon = styled.div`
   border: 1px solid #ddd;
 `;
 
-export default function SubItemSelector() {
-
+export default function SubItemSelector({ items, onSelectSubItem }) {
   return (
     <SubIconContainer>
-      <SubItemIcon>
-      </SubItemIcon>
+      {Object.entries(items).map(([category, subItems]) => (
+        <div key={category}>
+          {subItems.map((item, index) => (
+            <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+              {category}
+            </SubItemIcon>
+          ))}
+        </div>
+      ))}
     </SubIconContainer>
   );
 }
