@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Room from './components/Room';
 import ItemSelector from './components/ItemSelector';
 import SelectedItemList from './components/SelectedItemList';
+import SubSelectedItemList from './components/SubSelectedItemList';
 
 const AppContainer = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ function App() {
       <SelectorContainer>
         <ItemSelector onSelect={handleSelectType} />
         <SelectedItemList selectedType={selectedType} onSelectItem={handleSelectItem} />
+        <SubSelectedItemList />
       </SelectorContainer>
     </AppContainer>
   )

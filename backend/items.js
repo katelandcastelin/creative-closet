@@ -53,6 +53,9 @@ export const items = {
       icon: Bottom3Icon,
     },
   ],
+};
+
+export const subItems = {
   Accessories: {
     Hats: [
       {
@@ -87,4 +90,4 @@ export const items = {
       },
     ],
   },
-};
+}
