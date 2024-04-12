@@ -13,7 +13,22 @@ const ListContainer = styled.div`
   padding: 10px;
 `;
 
+const SubItemIcon = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ebedee;
+  color: #333;
+  border: 1px solid #ddd;
+`;
+
 const ItemBlock = styled.div`
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,14 +55,13 @@ export default function SubSelectedItemList({ selectedSubType, onSelectSubItem }
   const displaySubItems = subItems[selectedSubType] || [];
 
   return (
-    <>
-      <ListContainer>
-        {displaySubItems.map((item, index) => (
-          <ItemBlock key={index} onClick={() => onSelectSubItem(item)}>
-            <img src={item.icon} alt={selectedSubType} />
-          </ItemBlock>
-        ))}
-      </ListContainer>
-    </>
+    <div style={{display: 'flex', flexDirection: 'column'}}>
+      {displaySubItems.map((item, index) => (
+        <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+          {/* <img src={item.icon} alt={selectedSubType} /> */}
+          {item.category}
+        </SubItemIcon>
+      ))}
+    </div>
   )
 }

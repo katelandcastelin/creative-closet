@@ -41,10 +41,13 @@ function App() {
     <AppContainer>
       <Room selectedItem={selectedItem} selectedSubItem={selectedSubItem} />
       <SelectorContainer>
-        <ItemSelector onSelect={handleSelectType}  />
-        <SubItemSelector subOnSelect={handleSelectSubType} />
-        <SelectedItemList selectedType={selectedType} onSelectItem={handleSelectItem} />
+        <ItemSelector onSelect={handleSelectType} subOnSelect={handleSelectSubType} />
+        {/* <SubItemSelector subOnSelect={handleSelectSubType} /> */}
         <SubSelectedItemList selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem} />
+        <SelectedItemList
+          selectedType={selectedType} onSelectItem={handleSelectItem}
+          selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem}
+        />
       </SelectorContainer>
     </AppContainer>
   )

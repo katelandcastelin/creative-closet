@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SubItemSelector from './SubItemSelector';
-import { items } from '../../backend/items';
+import { items, subItems } from '../../backend/items';
 
 const ListContainer = styled.div`
   height: 97vh;
@@ -36,10 +36,25 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItem }) {
+const SubItemIcon = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ebedee;
+  color: #333;
+  border: 1px solid #ddd;
+`;
+
+export default function SelectedItemList({ selectedType, onSelectItem, selectedSubType, onSelectSubItem }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];
+  // const displaySubItems = subItems[selectedSubType] || [];
 
   const handleScroll = () => {
     setScrollPositions({
@@ -57,6 +72,12 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
 
   return (
     <>
+      {/* {displaySubItems.map((item, index) => (
+        <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+          <img src={item.icon} alt={selectedSubType} />
+          {item.category}
+        </SubItemIcon>
+      ))} */}
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
         {displayItems.map((item, index) => (
           <ItemBlock key={index} onClick={() => onSelectItem(item)}>

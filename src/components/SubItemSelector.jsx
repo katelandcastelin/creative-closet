@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { subItems } from '../../backend/items';
 
 const SubIconContainer = styled.div`
   display: flex;
@@ -47,15 +48,24 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function SubItemSelector({ subOnSelect }) {
+export default function SubItemSelector({ selectedSubType, onSelectSubItem }) {
+  const displaySubItems = subItems[selectedSubType] || [];
+
   return (
     <SubIconContainer>
-      <ItemIcon onClick={() => subOnSelect('Feet')}>
+      {/* <ItemIcon onClick={() => subOnSelect('Feet')}>
         Shoes
       </ItemIcon>
       <ItemIcon onClick={() => subOnSelect('Accessories')}>
         Accessories
-      </ItemIcon>
+      </ItemIcon> */}
+
+        {displaySubItems.map((item, index) => (
+          <div key={index} onClick={() => onSelectSubItem(item)}>
+            <img src={item.icon} alt={selectedSubType} />
+          </div>
+        ))}
+
       <SubItemIcon>
 
       </SubItemIcon>

@@ -65,38 +65,4 @@ export const subItems = {
     { category: 'Shoes', items: [{ full: Shoe1Full, icon: Shoe1Icon }] },
     { category: 'Socks', items: [{ full: Socks1Full, icon: Socks1Icon }] },
   ],
-  // Accessories: {
-  //   Hats: [
-  //     {
-  //       full: Hat1Full,
-  //       icon: Hat1Icon,
-  //     },
-  //   ],
-  //   Earrings: [
-  //     {
-  //       full: Earring1Full,
-  //       icon: Earring1Icon,
-  //     },
-  //   ],
-  //   Necklaces: [
-  //     {
-  //       full: Necklace1Full,
-  //       icon: Necklace1Icon,
-  //     },
-  //   ],
-  // },
-  // Feet: {
-  //   Shoes: [
-  //     {
-  //       full: Shoe1Full,
-  //       icon: Shoe1Icon,
-  //     },
-  //   ],
-  //   Socks: [
-  //     {
-  //       full: Socks1Full,
-  //       icon: Socks1Icon,
-  //     },
-  //   ],
-  // },
 }
