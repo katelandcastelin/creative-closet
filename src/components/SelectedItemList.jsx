@@ -50,7 +50,7 @@ const SubItemIcon = styled.div`
   border: 1px solid #ddd;
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItem, selectedSubType, onSelectSubItem }) {
+export default function SelectedItemList({ selectedType, onSelectItem }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { subItems } from '../../backend/items';
-import SubSelectedItemList from './SubSelectedItemList';
 
 const SubIconContainer = styled.div`
   display: flex;
@@ -49,7 +48,7 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function SubItemSelector({ selectedSubType, onSelectSubItem, subOnSelect }) {
+export default function SubItemSelector({ selectedSubType, onSelectSubItem }) {
   const displaySubItems = subItems[selectedSubType] || [];
 
   return (
@@ -62,35 +61,6 @@ export default function SubItemSelector({ selectedSubType, onSelectSubItem, subO
           </SubItemIcon>
         ))}
       </div>
-      {/* <ItemIcon onClick={() => subOnSelect('Feet')}>
-        Shoes
-      </ItemIcon>
-      <ItemIcon onClick={() => subOnSelect('Accessories')}>
-        Accessories
-      </ItemIcon> */}
-
-        {/* {displaySubItems.map((item, index) => (
-          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
-            <img src={item.icon} alt={selectedSubType} />
-          </SubItemIcon>
-        ))} */}
-        {/* <div style={{display: 'flex', flexDirection: 'column'}}>
-          {displaySubItems.map((item, index) => (
-            <SubItemIcon key={index} onClick={() => subOnSelect(item)}>
-              {item.items}
-              <SubSelectedItemList selectedSubType={selectedSubType} />
-            </SubItemIcon>
-          ))}
-        </div> */}
-        {/* {displaySubItems.map((item, index) => (
-          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
-            <img src={item.icon} alt={selectedSubType} />
-            {item.category}
-          </SubItemIcon>
-        ))} */}
-      <SubItemIcon>
-
-      </SubItemIcon>
     </SubIconContainer>
   );
 }
