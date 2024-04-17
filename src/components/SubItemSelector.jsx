@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { subItems } from '../../backend/items';
+import SubSelectedItemList from './SubSelectedItemList';
 
 const SubIconContainer = styled.div`
   display: flex;
@@ -48,11 +49,19 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function SubItemSelector({ selectedSubType, onSelectSubItem }) {
+export default function SubItemSelector({ selectedSubType, onSelectSubItem, subOnSelect }) {
   const displaySubItems = subItems[selectedSubType] || [];
 
   return (
     <SubIconContainer>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
+        {displaySubItems.map((item, index) => (
+          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+            {item.category}
+            {console.log('test')}
+          </SubItemIcon>
+        ))}
+      </div>
       {/* <ItemIcon onClick={() => subOnSelect('Feet')}>
         Shoes
       </ItemIcon>
@@ -60,12 +69,25 @@ export default function SubItemSelector({ selectedSubType, onSelectSubItem }) {
         Accessories
       </ItemIcon> */}
 
-        {displaySubItems.map((item, index) => (
-          <div key={index} onClick={() => onSelectSubItem(item)}>
+        {/* {displaySubItems.map((item, index) => (
+          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
             <img src={item.icon} alt={selectedSubType} />
-          </div>
-        ))}
-
+          </SubItemIcon>
+        ))} */}
+        {/* <div style={{display: 'flex', flexDirection: 'column'}}>
+          {displaySubItems.map((item, index) => (
+            <SubItemIcon key={index} onClick={() => subOnSelect(item)}>
+              {item.items}
+              <SubSelectedItemList selectedSubType={selectedSubType} />
+            </SubItemIcon>
+          ))}
+        </div> */}
+        {/* {displaySubItems.map((item, index) => (
+          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+            <img src={item.icon} alt={selectedSubType} />
+            {item.category}
+          </SubItemIcon>
+        ))} */}
       <SubItemIcon>
 
       </SubItemIcon>

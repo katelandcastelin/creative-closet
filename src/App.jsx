@@ -37,16 +37,18 @@ function App() {
     setSelectedSubItem(item);
   };
 
+  // subOnSelect needs to open SubItemSelector
+
   return (
     <AppContainer>
       <Room selectedItem={selectedItem} selectedSubItem={selectedSubItem} />
       <SelectorContainer>
         <ItemSelector onSelect={handleSelectType} subOnSelect={handleSelectSubType} />
-        {/* <SubItemSelector subOnSelect={handleSelectSubType} /> */}
         <SubSelectedItemList selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem} />
+        <SubItemSelector subOnSelect={handleSelectSubType} />
         <SelectedItemList
           selectedType={selectedType} onSelectItem={handleSelectItem}
-          selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem}
+          selectedSubType={selectedSubType}
         />
       </SelectorContainer>
     </AppContainer>
