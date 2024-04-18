@@ -56,12 +56,12 @@ export default function SubSelectedItemList({ selectedSubType, onSelectSubItem }
 
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      {/* {displaySubItems.map((item, index) => (
+      {displaySubItems.map((item, index) => (
         <ItemBlock key={index} onClick={() => onSelectSubItem(item)}>
           {item.category}
           {console.log('test')}
         </ItemBlock>
-      ))} */}
+      ))}
     </div>
   )
 }

@@ -48,9 +48,10 @@ function App() {
           selectedSubType={selectedSubType}
           onSelectSubItem={handleSelectSubType}
         />
-        <SubSelectedItemList selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem} />
+        {/* <SubSelectedItemList selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem} /> */}
         <SelectedItemList
           selectedType={selectedType} onSelectItem={handleSelectItem}
+          onSelectSubItem={handleSelectSubItem}
           selectedSubType={selectedSubType}
         />
       </SelectorContainer>

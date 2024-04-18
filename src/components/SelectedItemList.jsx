@@ -50,10 +50,11 @@ const SubItemIcon = styled.div`
   border: 1px solid #ddd;
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItem }) {
+export default function SelectedItemList({ selectedType, onSelectItem, onSelectSubItem, selectedSubType }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];
+  const displaySubItems = subItems[selectedSubType] || [];
 
   const handleScroll = () => {
     setScrollPositions({
@@ -75,6 +76,13 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
         {displayItems.map((item, index) => (
           <ItemBlock key={index} onClick={() => onSelectItem(item)}>
             <img src={item.icon} alt={selectedType} />
+          </ItemBlock>
+        ))}
+
+        {displaySubItems.map((item, index) => (
+          <ItemBlock key={index} onClick={() => onSelectSubItem(item)}>
+            {item.category}
+            {console.log('test')}
           </ItemBlock>
         ))}
       </ListContainer>
