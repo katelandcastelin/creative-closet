@@ -79,11 +79,12 @@ export default function SelectedItemList({ selectedType, onSelectItem, onSelectS
           </ItemBlock>
         ))}
 
-        {displaySubItems.map((item, index) => (
-          <ItemBlock key={index} onClick={() => onSelectSubItem(item)}>
-            {item.category}
-            {console.log('test')}
-          </ItemBlock>
+        {displaySubItems.map((category, catIndex) => (
+          category.items.map((subItem, itemIndex) => (
+            <ItemBlock key={`${catIndex}-${itemIndex}`} onClick={() => onSelectSubItem(subItem)}>
+              <img src={subItem.icon} alt={subItem.full} />
+            </ItemBlock>
+          ))
         ))}
       </ListContainer>
     </>

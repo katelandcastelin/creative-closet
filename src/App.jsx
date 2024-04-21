@@ -18,6 +18,7 @@ const SelectorContainer = styled.div`
 function App() {
   const [selectedType, setSelectedType] = useState('');
   const [selectedSubType, setSelectedSubType] = useState('');
+  const [subCat, setSubCat] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedSubItem, setSelectedSubItem] = useState(null);
 
@@ -29,6 +30,10 @@ function App() {
     setSelectedSubType(type);
   };
 
+  const subCategoryClick = (type) => {
+    setSubCat(type);
+  };
+
   const handleSelectItem = (item) => {
     setSelectedItem(item);
   };
@@ -37,22 +42,25 @@ function App() {
     setSelectedSubItem(item);
   };
 
-  // subOnSelect needs to open SubItemSelector
-
   return (
     <AppContainer>
       <Room selectedItem={selectedItem} selectedSubItem={selectedSubItem} />
       <SelectorContainer>
-        <ItemSelector onSelect={handleSelectType} subOnSelect={handleSelectSubType} />
+        <ItemSelector
+          onSelect={handleSelectType}
+          subOnSelect={handleSelectSubType}
+        />
         <SubItemSelector
           selectedSubType={selectedSubType}
-          onSelectSubItem={handleSelectSubType}
+          // onSelectSubType={handleSelectSubType}
+          onSelectSubType={subCategoryClick}
         />
-        {/* <SubSelectedItemList selectedSubType={selectedSubType} onSelectSubItem={handleSelectSubItem} /> */}
         <SelectedItemList
-          selectedType={selectedType} onSelectItem={handleSelectItem}
-          onSelectSubItem={handleSelectSubItem}
+          selectedType={selectedType}
+          onSelectItem={handleSelectItem}
           selectedSubType={selectedSubType}
+          onSelectSubItem={handleSelectSubItem}
+          subCat={subCat}
         />
       </SelectorContainer>
     </AppContainer>

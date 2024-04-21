@@ -48,16 +48,16 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function SubItemSelector({ selectedSubType, onSelectSubItem }) {
+export default function SubItemSelector({ selectedSubType, onSelectSubType }) {
   const displaySubItems = subItems[selectedSubType] || [];
 
   return (
     <SubIconContainer>
       <div style={{display: 'flex', flexDirection: 'column'}}>
         {displaySubItems.map((item, index) => (
-          <SubItemIcon key={index} onClick={() => onSelectSubItem(item)}>
+          <SubItemIcon key={index} onClick={() => onSelectSubType(item)}>
             {item.category}
-            {console.log('test')}
+            {console.log('SubItemSelector')}
           </SubItemIcon>
         ))}
       </div>
