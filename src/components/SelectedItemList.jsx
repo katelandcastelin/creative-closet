@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SubItemSelector from './SubItemSelector';
-import { items } from '../../backend/items';
+import { items, subItems } from '../../backend/items';
 
 const ListContainer = styled.div`
   height: 97vh;
@@ -36,16 +36,25 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SelectedItemList({ selectedType, onSelectItem }) {
+const SubItemIcon = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ebedee;
+  color: #333;
+  border: 1px solid #ddd;
+`;
+
+export default function SelectedItemList({ selectedType, onSelectItem, onSelectSubItem, selectedSubType }) {
   const [scrollPositions, setScrollPositions] = useState({});
   const listContainerRef = useRef(null);
   const displayItems = items[selectedType] || [];
-  const [selectedSubItem, setSelectedSubItem] = useState(null);
-
-  const onSelectSubItem = (item) => {
-    console.log(item);
-    setSelectedSubItem(item);
-  };
+  const displaySubItems = subItems[selectedSubType] || [];
 
   const handleScroll = () => {
     setScrollPositions({
@@ -61,19 +70,22 @@ export default function SelectedItemList({ selectedType, onSelectItem }) {
     }
   }, [selectedType, scrollPositions]);
 
-  const isArray = Array.isArray(displayItems);
-
   return (
     <>
-    {!isArray && selectedType in items && <SubItemSelector items={items[selectedType]} onSelectSubItem={onSelectSubItem} />}
       <ListContainer ref={listContainerRef} onScroll={handleScroll}>
-        {isArray
-          ? displayItems.map((item, index) => (
-              <ItemBlock key={index} onClick={() => onSelectItem(item)}>
-                <img src={item.icon} alt={selectedType} />
-              </ItemBlock>
-            ))
-          : null}
+        {displayItems.map((item, index) => (
+          <ItemBlock key={index} onClick={() => onSelectItem(item)}>
+            <img src={item.icon} alt={selectedType} />
+          </ItemBlock>
+        ))}
+
+        {displaySubItems.map((category, catIndex) => (
+          category.items.map((subItem, itemIndex) => (
+            <ItemBlock key={`${catIndex}-${itemIndex}`} onClick={() => onSelectSubItem(subItem)}>
+              <img src={subItem.icon} alt={subItem.full} />
+            </ItemBlock>
+          ))
+        ))}
       </ListContainer>
     </>
   )

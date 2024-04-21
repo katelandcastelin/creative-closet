@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SubItemSelector from './SubItemSelector';
-import { items } from '../../backend/items';
+import { subItems } from '../../backend/items';
 
 const ListContainer = styled.div`
   height: 97vh;
@@ -13,7 +13,22 @@ const ListContainer = styled.div`
   padding: 10px;
 `;
 
+const SubItemIcon = styled.div`
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ebedee;
+  color: #333;
+  border: 1px solid #ddd;
+`;
+
 const ItemBlock = styled.div`
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,38 +51,17 @@ const ItemBlock = styled.div`
   }
 `;
 
-export default function SubSelectedItemList({ selectedType, onSelectItem }) {
-  const [scrollPositions, setScrollPositions] = useState({});
-  const listContainerRef = useRef(null);
-  const displayItems = items[selectedType] || [];
-
-  const handleScroll = () => {
-    setScrollPositions({
-      ...scrollPositions,
-      [selectedType]: listContainerRef.current?.scrollTop,
-    });
-  };
-
-  useEffect(() => {
-    const savedScrollPosition = scrollPositions[selectedType] || 0;
-    if (listContainerRef.current) {
-      listContainerRef.current.scrollTop = savedScrollPosition;
-    }
-  }, [selectedType, scrollPositions]);
-
-  const isArray = Array.isArray(displayItems);
+export default function SubSelectedItemList({ selectedSubType, onSelectSubItem }) {
+  const displaySubItems = subItems[selectedSubType] || [];
 
   return (
-    <>
-      <ListContainer ref={listContainerRef} onScroll={handleScroll}>
-        {isArray
-          ? displayItems.map((item, index) => (
-              <ItemBlock key={index} onClick={() => onSelectItem(item)}>
-                <img src={item.icon} alt={selectedType} />
-              </ItemBlock>
-            ))
-          : null}
-      </ListContainer>
-    </>
+    <div style={{display: 'flex', flexDirection: 'column'}}>
+      {/* {displaySubItems.map((item, index) => (
+        <ItemBlock key={index} onClick={() => onSelectSubItem(item)}>
+          {item.category}
+          {console.log('test')}
+        </ItemBlock>
+      ))} */}
+    </div>
   )
 }

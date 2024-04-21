@@ -35,7 +35,7 @@ const ItemIcon = styled.div`
   }
 `;
 
-export default function ItemSelector({ onSelect }) {
+export default function ItemSelector({ onSelect, subOnSelect }) {
   return (
     <SelectorContainer>
       <ItemIcon onClick={() => onSelect('Hair')}>
@@ -53,10 +53,11 @@ export default function ItemSelector({ onSelect }) {
       <ItemIcon onClick={() => onSelect('Jackets')}>
         Jacket
       </ItemIcon>
-      <ItemIcon onClick={() => onSelect('Feet')}>
+
+      <ItemIcon onClick={() => subOnSelect('Feet')}>
         Shoes
       </ItemIcon>
-      <ItemIcon onClick={() => onSelect('Accessories')}>
+      <ItemIcon onClick={() => subOnSelect('Accessories')}>
         Accessories
       </ItemIcon>
     </SelectorContainer>
